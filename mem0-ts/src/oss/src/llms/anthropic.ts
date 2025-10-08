@@ -39,7 +39,16 @@ export class AnthropicLLM implements LLM {
       max_tokens: 4096,
     });
 
-    return response.content[0].text;
+    // response.content is an array of content blocks (e.g., text, tool_use, etc.)
+    // We safely extract only text blocks.
+    const textParts: string[] = [];
+    for (const block of response.content as any[]) {
+      if (block && block.type === "text" && typeof block.text === "string") {
+        textParts.push(block.text);
+      }
+    }
+    const text = textParts.join("\n");
+    return text;
   }
 
   async generateChat(messages: Message[]): Promise<LLMResponse> {

@@ -1,6 +1,6 @@
 {
-  "name": "mem0ai",
-  "version": "2.1.38",
+  "name": "@abiyyufahri/mem0ai",
+  "version": "2.1.45",
   "description": "The Memory Layer For Your AI Apps",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "npx rimraf dist",
     "build": "npm run clean && npx prettier --check . && npx tsup",
     "dev": "npx nodemon",
     "start": "pnpm run example memory",
@@ -39,12 +39,13 @@
     "test": "jest",
     "test:ts": "jest --config jest.config.js",
     "test:watch": "jest --config jest.config.js --watch",
-    "format": "npm run clean && prettier --write .",
-    "format:check": "npm run clean && prettier --check ."
+    "format": "npm run clean && npx prettier --write .",
+    "format:check": "npm run clean && npx prettier --check ."
   },
   "tsup": {
     "entry": [
-      "src/index.ts"
+      "src/index.ts",
+      "src/oss/index.ts"
     ],
     "format": [
       "cjs",

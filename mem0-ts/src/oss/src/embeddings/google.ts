@@ -16,7 +16,8 @@ export class GoogleEmbedder implements Embedder {
     //          or { embedder: { provider: 'google', config: { modelProperties: { embeddingDims: 512 }}}}
     // NOTE: Google API will error if unsupported size is provided for the chosen model.
     // Prefer explicit embeddingDims, fall back to modelProperties if provided
-    this.outputDimensionality = config.embeddingDims || config.modelProperties?.embeddingDims;
+    this.outputDimensionality =
+      config.embeddingDims || config.modelProperties?.embeddingDims;
   }
 
   async embed(text: string): Promise<number[]> {
@@ -26,7 +27,7 @@ export class GoogleEmbedder implements Embedder {
       // Only pass config if outputDimensionality is specified to avoid overriding provider defaults
       config: this.outputDimensionality
         ? { outputDimensionality: this.outputDimensionality }
-        : undefined,
+        : { outputDimensionality: 1536 },
     });
     return response.embeddings![0].values!;
   }
