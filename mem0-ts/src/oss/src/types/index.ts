@@ -17,6 +17,8 @@ export interface EmbeddingConfig {
   model?: string | any;
   url?: string;
   modelProperties?: Record<string, any>;
+  // Optional embedding dimensionality for models that allow specifying vector size (e.g., Google text-embedding-004)
+  embeddingDims?: number;
 }
 
 export interface VectorStoreConfig {
@@ -118,6 +120,7 @@ export const MemoryConfigSchema = z.object({
       apiKey: z.string().optional(),
       model: z.union([z.string(), z.any()]).optional(),
       baseURL: z.string().optional(),
+      embeddingDims: z.number().optional(),
     }),
   }),
   vectorStore: z.object({
